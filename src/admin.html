@@ -9,10 +9,10 @@
 <body>
     <input name="file" type="file" class="cloudinary-fileupload" data-cloudinary-field="image_id" 
     data-form-data="{ &quot;upload_preset&quot;:  &quot;ogrs8whk&quot;, 
-        &quot;folder&quot;:  &quot;test&quot;,
+      &quot;folder&quot;:  &quot;test&quot;, 
         &quot;callback&quot;: &quot;https://www.example.com/cloudinary_cors.html&quot;}" ></input>
-
-
+      <img class="preview"></img>
+      <input class="image_public_id"></input>  
 
     <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
     <script src="../node_modules/jquery/dist/jquery.js"></script>
@@ -28,23 +28,34 @@ AV.init({
   appKey: "zpA54O499HbzSi5XK03s1hk0",
   serverURLs: "https://rj70tkvd.lc-cn-n1-shared.com"
 });
+
+//配置
 $.cloudinary.config({ cloud_name: 'dah1jcepx', secure: true});
 
-// $(document).ready(function() {
-//   $('.cloudinary-fileupload').cloudinary_fileupload({
-//     disableImageResize: false,
-//     imageMaxWidth: 800,                   // 800 is an example value - no default
-//     imageMaxHeight: 600,                  // 600 is an example value - no default
-//     maxFileSize: 20000000,                // 20MB is an example value - no default
-//     loadImageMaxFileSize: 20000000,       // default is 10MB
-//     acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp|ico)$/i
-//   });
-// });
+
+
+//fileupload绑定
 $(document).ready(function() {
   if($.fn.cloudinary_fileupload !== undefined) {
-    $("input.cloudinary-fileupload[type=file]").cloudinary_fileupload();
+    $("input.cloudinary-fileupload[type=file]").cloudinary_fileupload(
+      {acceptFileTypes: /(\.|\/)(mp3)$/i}
+    );
+    console.log("ok");
   }
 });
+//上传事件绑定
+$('.cloudinary-fileupload').bind('cloudinarydone', function(e, data) {  
+    console.log(data);
+    var img=$.cloudinary.url(data.result.public_id, { width: 400, crop: "pad"})
+    console.log(img)
+   $('.preview').attr('src',img)
+    $('.image_public_id').val(data.result.public_id);    
+    return true;});
+
+  // var tag =$.cloudinary.url("sample");
+  
+  // $(".image").attr('src',tag)
+ 
     </script>
 </body>
 </html>
