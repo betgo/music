@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "blueimp-file-upload": "^10.4.0",
+    "cloudinary-jquery-file-upload": "^2.8.0",
+    "jquery": "^3.4.1",
     "leancloud-storage": "^4.0.0"
   }
 }
