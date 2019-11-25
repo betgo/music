@@ -8,7 +8,9 @@
 </head>
 <body>
     <input name="file" type="file" class="cloudinary-fileupload" data-cloudinary-field="image_id" 
-    data-form-data=" ... upload options as html-escaped JSON data ... " ></input>
+    data-form-data="{ &quot;upload_preset&quot;:  &quot;ogrs8whk&quot;, 
+        &quot;folder&quot;:  &quot;test&quot;,
+        &quot;callback&quot;: &quot;https://www.example.com/cloudinary_cors.html&quot;}" ></input>
 
 
 
@@ -18,14 +20,31 @@
     <script src="../node_modules/blueimp-file-upload/js/jquery.iframe-transport.js" type="text/javascript"></script>
     <script src="../node_modules/blueimp-file-upload/js/jquery.fileupload.js" type="text/javascript"></script>
     <script src="../node_modules/cloudinary-jquery-file-upload/cloudinary-jquery-file-upload.js" type="text/javascript"></script>
-    <script>
+
+   <script>
 
 AV.init({
   appId: "RJ70TKvDaTmBGn8PptTWIMIF-gzGzoHsz",
   appKey: "zpA54O499HbzSi5XK03s1hk0",
   serverURLs: "https://rj70tkvd.lc-cn-n1-shared.com"
 });
-console.log('$.cloudinary :', $.cloudinary);
+$.cloudinary.config({ cloud_name: 'dah1jcepx', secure: true});
+
+// $(document).ready(function() {
+//   $('.cloudinary-fileupload').cloudinary_fileupload({
+//     disableImageResize: false,
+//     imageMaxWidth: 800,                   // 800 is an example value - no default
+//     imageMaxHeight: 600,                  // 600 is an example value - no default
+//     maxFileSize: 20000000,                // 20MB is an example value - no default
+//     loadImageMaxFileSize: 20000000,       // default is 10MB
+//     acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp|ico)$/i
+//   });
+// });
+$(document).ready(function() {
+  if($.fn.cloudinary_fileupload !== undefined) {
+    $("input.cloudinary-fileupload[type=file]").cloudinary_fileupload();
+  }
+});
     </script>
 </body>
 </html>
