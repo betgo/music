@@ -1,61 +1,113 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>管理页面</title>
+    <style>
+        .upload-btn-wrapper {
+            display: block;
+            overflow: hidden;
+            padding: 10px 20px;
+
+        }
+
+        .btn {
+            border: 2px solid gray;
+            color: gray;
+            background-color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .upload-btn-wrapper input[type=file] {
+            font-size: 45px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+        .bar-wrapper{
+            height: 15px;
+            width: 158px;
+            border:1px solid red;
+        }
+        .progress_bar{
+            height: 100%;
+            width: 0px;
+            background: black;
+        }
+    </style>
 </head>
+
 <body>
-    <input name="file" type="file" class="cloudinary-fileupload" data-cloudinary-field="image_id" 
-    data-form-data="{ &quot;upload_preset&quot;:  &quot;ogrs8whk&quot;, 
-      &quot;folder&quot;:  &quot;test&quot;, 
-        &quot;callback&quot;: &quot;https://www.example.com/cloudinary_cors.html&quot;}" ></input>
-      <img class="preview"></img>
-      <input class="image_public_id"></input>  
+    <div class="upload-btn-wrapper">
+        <button class="btn">拖拽上传音乐</button>
+        <input name="file" type="file" class="cloudinary-fileupload" data-cloudinary-field="image_id" data-form-data="{ &quot;upload_preset&quot;:  &quot;ogrs8whk&quot;,&quot;folder&quot;:  &quot;test&quot;, 
+        &quot;callback&quot;: &quot;https://www.example.com/cloudinary_cors.html&quot;
+    }"></input>
+    <div class="bar-wrapper">
+        <div class="progress_bar"></div>
+    </div>
+    </div>
+
+
+    <audio src="" class="ppp" controls="controls"></audio>
+    <input class="image_public_id"></input>
+
+
 
     <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
     <script src="../node_modules/jquery/dist/jquery.js"></script>
     <script src="../node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js" type="text/javascript"></script>
     <script src="../node_modules/blueimp-file-upload/js/jquery.iframe-transport.js" type="text/javascript"></script>
     <script src="../node_modules/blueimp-file-upload/js/jquery.fileupload.js" type="text/javascript"></script>
-    <script src="../node_modules/cloudinary-jquery-file-upload/cloudinary-jquery-file-upload.js" type="text/javascript"></script>
+    <script src="../node_modules/cloudinary-jquery-file-upload/cloudinary-jquery-file-upload.js" type="text/javascript">
+    </script>
 
-   <script>
+    <script>
+        AV.init({
+            appId: "RJ70TKvDaTmBGn8PptTWIMIF-gzGzoHsz",
+            appKey: "zpA54O499HbzSi5XK03s1hk0",
+            serverURLs: "https://rj70tkvd.lc-cn-n1-shared.com"
+        });
 
-AV.init({
-  appId: "RJ70TKvDaTmBGn8PptTWIMIF-gzGzoHsz",
-  appKey: "zpA54O499HbzSi5XK03s1hk0",
-  serverURLs: "https://rj70tkvd.lc-cn-n1-shared.com"
-});
-
-//配置
-$.cloudinary.config({ cloud_name: 'dah1jcepx', secure: true});
+        //配置
+        $.cloudinary.config({
+            cloud_name: 'dah1jcepx',
+            secure: true
+        });
 
 
 
-//fileupload绑定
-$(document).ready(function() {
-  if($.fn.cloudinary_fileupload !== undefined) {
-    $("input.cloudinary-fileupload[type=file]").cloudinary_fileupload(
-      {acceptFileTypes: /(\.|\/)(mp3)$/i}
-    );
-    console.log("ok");
-  }
-});
-//上传事件绑定
-$('.cloudinary-fileupload').bind('cloudinarydone', function(e, data) {  
-    console.log(data);
-    var img=$.cloudinary.url(data.result.public_id, { width: 400, crop: "pad"})
-    console.log(img)
-   $('.preview').attr('src',img)
-    $('.image_public_id').val(data.result.public_id);    
-    return true;});
+        //fileupload绑定
+        $(document).ready(function () {
+            if ($.fn.cloudinary_fileupload !== undefined) {
+                $("input.cloudinary-fileupload[type=file]").cloudinary_fileupload();
+                console.log("ok");
+            }
+        });
+        //上传事件绑定
+        $('.cloudinary-fileupload').bind('cloudinarydone', function (e, data) {
+            console.log(e)
+            console.log(data)
+            var img = $.cloudinary.url(data.result.public_id)
+            console.log(img)
+            $('.ppp').attr('src', data.result.secure_url)
+            $('.image_public_id').val(data.result.public_id)
+            return true;
+        });
+        //进度条
+        $('.cloudinary-fileupload').bind('cloudinaryprogress', function(e, data) { 
+    $('.progress_bar').css('width', Math.round((data.loaded * 100.0) / data.total) + '%');});
+        // var tag =$.cloudinary.url("sample");
 
-  // var tag =$.cloudinary.url("sample");
-  
-  // $(".image").attr('src',tag)
- 
+        // $(".image").attr('src',tag)
     </script>
 </body>
+
 </html>
