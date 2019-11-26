@@ -1,0 +1,91 @@
+*{margin: 0;padding: 0;}
+*{box-sizing: border-box;}
+*::after{box-sizing: border-box;}
+*::before{box-sizing: border-box;}
+ul,ol{list-style-type: none;}
+a{color:inherit;text-decoration: none;}
+
+baby{
+    font-size: 12px;
+    line-height: 1.5;
+}
+.page{
+    display: flex;
+    height: 100vh;
+}
+.page > aside{
+    display: flex;
+   flex-direction: column;
+width: 200px;
+border:1px solid red;
+
+}
+.page> main{
+    flex-grow :1;
+    border:1px solid green;
+}
+
+/* aside */
+
+.newsongs{
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.newsongs.active{
+    background: #caccce;
+}
+.songslist{
+   text-align: left;
+   flex-grow: 1;
+}
+.songslist >li{
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+   
+}
+.songslist>li.active{
+    background: #caccce;
+}
+
+.upload-btn-wrapper {
+    display: block;
+    overflow: hidden;
+    padding: 10px 20px;
+
+}
+
+
+/* upload*/
+.btn {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    cursor: pointer;
+}
+
+.upload-btn-wrapper input[type=file] {
+    font-size: 45px;
+    position: relative;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    
+}
+
+.bar-wrapper {
+    height: 15px;
+    width: 158px;
+    border: 1px solid red;
+}
+
+.progress_bar {
+    height: 100%;
+    width: 0px;
+    background: black;
+}
