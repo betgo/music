@@ -25,17 +25,16 @@
             </div>
         </form>`,
         render(data = {}) {
-         
+
             let placholders = ['songname', 'url', 'singer'];
             let html = this.template;
             placholders.map((string) => {
                 html = html.replace(`__${string}__`, data[string] || '');
             })
             this.$el.html(html);
-            if(data.id)
-            {
+            if (data.id) {
                 this.$el.prepend('<h1>编辑歌曲</h1>')
-            }else{
+            } else {
                 this.$el.prepend('<h1>新建歌曲</h1>')
             }
         },
@@ -64,6 +63,13 @@
             }.bind(this), (error) => {
                 console.log('error :', error);
             });
+        },
+        update(data){
+            var song = AV.Object.createWithoutData('Song',data.id);
+            song.set('songname', data.songname);
+            song.set('singer', data.singer)
+            song.set('url', data.url)
+           return song.save()
         }
 
 
@@ -76,7 +82,7 @@
             this.view.render(this.model.data)
             this.bindEvent();
             this.bindEventHub();
-          
+
         },
         render(data) {
             this.view.render(data)
@@ -89,32 +95,58 @@
                 needs.map((string) => {
                     data[string] = this.view.$el.find(`[name="${string}"]`).val();
                 })
-                this.model.create(data)
-                    .then(
-                        () => {
-                            this.view.reset();
-                            console.log("发射")
-                            __data = JSON.parse(JSON.stringify(this.model.data));
-                            window.eventHub.emit("create", __data)
-                        },
-                        (err) => {
-                            console.log('获取失败', err)
-                        }
-                    )
+                if (!data['songname'] || !data['url']) {
+                    console.log("不能为空")
+                    return 0;
+                }
+                if (this.model.data.id) {
+                    data["id"]=this.model.data.id
+                   this.updata(data)
+                } else {
+                    this.create(data)
+                }
+            
+
             })
         },
-        bindEventHub(){
-            window.eventHub.on("upload", (data) => {
+        create(data) {
+            this.model.create(data)
+                .then(
+                    () => {
+                        this.view.reset();
+                        console.log("发射")
+                        __data = JSON.parse(JSON.stringify(this.model.data));
+                        window.eventHub.emit("create", __data)
+                    },
+                    (err) => {
+                        console.log('获取失败', err)
+                    }
+                )
+        },
+        updata(data){
+            this.model.update(data)
+            .then(()=>{
+                console.log("upadate发射")
+                __data = JSON.parse(JSON.stringify(data))
+                window.eventHub.emit("update",__data)
+            }
+            ,(err)=>{console.log(err)})
+        },
+        bindEventHub() {
+            window.eventHub.on("new", (data) => {
                 this.render(data);
+                console.log("song-form-new-data",data)
+                if (data === undefined)
+                    this.model.data = { songname: "", singer: "", url: "", id: "", }
+                else { this.model.data = data }
             })
             window.eventHub.on("select", (data) => {
-                console.log(data[0])
-                console.log('this. :', this.model.data);
+                //console.log(data[0])
                 this.view.render(data[0]);
+                console.log("song-form:select-data", data[0])
+                this.model.data = data[0]
             })
-            window.eventHub.on("init", () => {
-               this.view.reset()
-            })
+
         }
 
     }

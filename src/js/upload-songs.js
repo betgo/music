@@ -18,7 +18,10 @@ $('.cloudinary-fileupload').bind('cloudinarydone', function (e, data) {
 
     console.log(data)
     let img = $.cloudinary.url(data.result.public_id)
-    console.log(img)
+    if(data.result.original_filename ===undefined){
+        console.log("已有此文件")
+        return 0;
+    }
     window.eventHub.emit("upload",{
         songname:data.result.original_filename,
         url:data.result.url

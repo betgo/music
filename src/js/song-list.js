@@ -61,7 +61,6 @@
             this.bindevent()
         },
         bindevent() {
-            console.log(this.view.el)
             $(this.view.el).on('click', 'li', (e) => {
                     //点击绑定
                 this.view.activeItem(e.currentTarget)
@@ -75,8 +74,22 @@
                 this.model.data.songs.push(songData)
                 this.view.render(this.model.data);
             })
-            window.eventHub.on("init",()=>{
+            window.eventHub.on("new",(data)=>{
                 this.view.reset()
+            })
+            window.eventHub.on("update",(song)=>{
+                console.log("upadate收到 song",song)
+                let songssss = this.model.data.songs
+                for (let i = 0; i < songssss.length; i++) {
+                    if (songssss[i].id === song.id){
+                        console.log('i :', i);
+                        Object.assign(songssss[i],song)
+                       
+                    }
+                    
+                }
+               
+                this.view.render(this.model.data);
             })
         }
     }

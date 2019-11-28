@@ -17,12 +17,6 @@
         `,
         render(data) {
             $(this.el).html(this.template)
-        },
-        activeItem(data) {
-            $(data).addClass('active')
-        },
-        duactive(e){
-            $(e).removeClass('active')
         }
     }
     let model = {}
@@ -36,18 +30,28 @@
         },
         bindEventHub() {
             window.eventHub.on("upload", (data) => {
-                console.log("new-song 收到 upload")
-                console.log(data)
+                this.model.data=data
+                window.eventHub.emit("new",this.model.data)
+               this.active()
             })
             window.eventHub.on("select", (data) => {
-                    this.view.duactive('.newsongs')
+                    this.duactive()
             })
+            window.eventHub.on("create", (data) => {//清空数据
+                this.model ={}
+        })
         },
         bindEvent() {
             $(this.view.el).on('click', '.newsongs', (e) => {
-                this.view.activeItem(e.currentTarget)
-                window.eventHub.emit("init",{})
+                this.active()
+                window.eventHub.emit("new",this.model.data)
             })
+        },
+        active(){
+            $('.newsongs').addClass('active')
+        },
+        duactive(){
+            $('.newsongs').removeClass('active')
         }
     }
     controller.init(view, model)
