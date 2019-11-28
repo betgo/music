@@ -6,7 +6,6 @@
             this.$el = $(this.el)
         },
         template: `
-        <h1>新建歌曲</h1>
         <form class="form">
             <div class="row">
                 <label>歌名</label>
@@ -26,12 +25,19 @@
             </div>
         </form>`,
         render(data = {}) {
+         
             let placholders = ['songname', 'url', 'singer'];
             let html = this.template;
             placholders.map((string) => {
                 html = html.replace(`__${string}__`, data[string] || '');
             })
             this.$el.html(html);
+            if(data.id)
+            {
+                this.$el.prepend('<h1>编辑歌曲</h1>')
+            }else{
+                this.$el.prepend('<h1>新建歌曲</h1>')
+            }
         },
         reset() {
             this.render();
@@ -69,9 +75,8 @@
             this.view.init();
             this.view.render(this.model.data)
             this.bindEvent();
-            window.eventHub.on("upload", (data) => {
-                this.render(data);
-            })
+            this.bindEventHub();
+          
         },
         render(data) {
             this.view.render(data)
@@ -96,6 +101,19 @@
                             console.log('获取失败', err)
                         }
                     )
+            })
+        },
+        bindEventHub(){
+            window.eventHub.on("upload", (data) => {
+                this.render(data);
+            })
+            window.eventHub.on("select", (data) => {
+                console.log(data[0])
+                console.log('this. :', this.model.data);
+                this.view.render(data[0]);
+            })
+            window.eventHub.on("init", () => {
+               this.view.reset()
             })
         }
 

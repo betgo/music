@@ -15,15 +15,12 @@
             // console.log("songs", songs)
             if (songs.length != 0) {
                 let LiList = songs.map((song) => {
-                    return `<li>${song.songname}</li>`;
+                    return `<li data-song-id="${song.id}">${song.songname}</li>`;
                 });
-
                 LiList.map((domLi) => {
                     $el.find('ul').append(domLi);
                 })
-
             }
-
         },
         init(_this) {
             //获取歌曲
@@ -33,12 +30,14 @@
                 }
             );
         },
-        activeItem(li){
+        activeItem(li) {
             let $li = $(li)
             $li.addClass('active')
                 .siblings('.active').removeClass('active')
+        },
+        reset(){
+            $(this.el).find('li').removeClass('active')
         }
-
     }
     let model = {
         data: {
@@ -64,8 +63,11 @@
         bindevent() {
             console.log(this.view.el)
             $(this.view.el).on('click', 'li', (e) => {
-                    
-                    this.view.activeItem(e.currentTarget)
+                    //点击绑定
+                this.view.activeItem(e.currentTarget)
+                let songId = e.currentTarget.getAttribute('data-song-id');
+                let song =this.model.data.songs.filter((s)=> s.id == songId)
+                window.eventHub.emit('select',{...song})
             })
         },
         bindEventHub() {
@@ -73,9 +75,9 @@
                 this.model.data.songs.push(songData)
                 this.view.render(this.model.data);
             })
-        },
-        active() {
-            $(this.view.el).children('.songslist').children('li').addClass('active');
+            window.eventHub.on("init",()=>{
+                this.view.reset()
+            })
         }
     }
     controller.init(view, model)
