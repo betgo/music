@@ -17,6 +17,12 @@
         `,
         render(data) {
             $(this.el).html(this.template)
+        },
+        activeItem(data) {
+            $(data).addClass('active')
+        },
+        duactive(e){
+            $(e).removeClass('active')
         }
     }
     let model = {}
@@ -25,9 +31,22 @@
             this.view = view
             this.model = model
             this.view.render(this.model.data)
+            this.bindEventHub()
+            this.bindEvent()
+        },
+        bindEventHub() {
             window.eventHub.on("upload", (data) => {
                 console.log("new-song 收到 upload")
                 console.log(data)
+            })
+            window.eventHub.on("select", (data) => {
+                    this.view.duactive('.newsongs')
+            })
+        },
+        bindEvent() {
+            $(this.view.el).on('click', '.newsongs', (e) => {
+                this.view.activeItem(e.currentTarget)
+                window.eventHub.emit("init",{})
             })
         }
     }
