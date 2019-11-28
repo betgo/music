@@ -28,6 +28,9 @@ width: 200px;
 
 /* aside */
 
+.song-list{
+flex-grow: 1;
+}
 .newsongs{
     text-align: center;
     padding: 10px;
