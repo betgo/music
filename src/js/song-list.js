@@ -10,7 +10,7 @@
         render(data) {
             let $el = $(this.el)
             $el.html(this.template)
-            let { songs } = data;
+            let { songs,selectId  } = data;
             // console.log("渲染数据", data)
             // console.log("songs", songs)
             if (songs.length != 0) {
@@ -20,6 +20,9 @@
                 LiList.map((domLi) => {
                     $el.find('ul').append(domLi);
                 })
+            }
+            if(selectId){
+                this.activeItem($(`[data-song-id="${selectId}"]`))
             }
         },
         init(_this) {
@@ -31,8 +34,7 @@
             );
         },
         activeItem(li) {
-            let $li = $(li)
-            $li.addClass('active')
+            $(li).addClass('active')
                 .siblings('.active').removeClass('active')
         },
         reset(){
@@ -41,7 +43,8 @@
     }
     let model = {
         data: {
-            songs: []
+            songs: [],
+            selectId:"",
         },
         find() {
             var query = new AV.Query('Song');
@@ -63,8 +66,9 @@
         bindevent() {
             $(this.view.el).on('click', 'li', (e) => {
                     //点击绑定
-                this.view.activeItem(e.currentTarget)
                 let songId = e.currentTarget.getAttribute('data-song-id');
+                this.model.data.selectId = songId
+                this.view.render(  this.model.data)
                 let song =this.model.data.songs.filter((s)=> s.id == songId)
                 window.eventHub.emit('select',{...song})
             })
@@ -84,12 +88,10 @@
                     if (songssss[i].id === song.id){
                         console.log('i :', i);
                         Object.assign(songssss[i],song)
-                       
                     }
-                    
                 }
-               
                 this.view.render(this.model.data);
+
             })
         }
     }
