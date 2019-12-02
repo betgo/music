@@ -1,0 +1,373 @@
+*{margin:0;padding: 0;}
+*{box-sizing: border-box;}
+*::after{box-sizing: border-box;}
+*::before{box-sizing: border-box;}
+
+b, em, h1, h2, h3, h4, h5, h6, strong {
+    font-weight: 400;
+}
+h1, h2, h3, h4, h5, h6, small {
+    font-size: 100%;
+}
+address, cite, dfn, em, i, var{
+    font-style: normal;
+}
+a, a:visited {
+    color: #333;
+    /* text-shadow: 0 0 0px black; */
+}
+
+body, button, input, keygen, legend, select, textarea {
+    font: 14px/1.5 Helvetica,sans-serif,STHeiTi;
+    /* color: #333; */
+    outline: 0;
+}
+a, del, ins, s, u {
+    text-decoration: none;
+}
+
+element.style {
+}
+.m-homeremd .remd_songs {
+    position: relative;
+    padding-bottom: 24px;
+   
+}
+a, b, blockquote, body, button, caption, dd, del, div, dl, dt, em, fieldset, figure, form, h1, h2, h3, h4, h5, h6, hr, html, i, ins, legend, li, menu, ol, p, pre, s, span, strong, table, td, textarea, th, u, ul {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-user-select: none;
+}
+blockquote, body, button, caption, dd, div, dl, dt, fieldset, figure, form, h1, h2, h3, h4, h5, h6, hr, html, input, legend, li, menu, ol, p, pre, table, td, textarea, th, ul {
+    margin: 0;
+    padding: 0;
+}
+user agent stylesheet
+div {
+    display: block;
+}
+.m-tabarea {
+    margin: 0 auto;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-user-select: none;
+}
+body, html {
+    height: 100%;
+    width: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+/* topbar*/
+.m-topbar{
+    position: relative;
+    width: 100%;
+    background: #d43c33;
+    height: 0;
+    padding-bottom: 84px;
+    transition: padding-bottom .3s;
+}
+.topfix{
+    position: fixed;
+    top:0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    width: 100%;
+    background: #d43c33;
+    height: 84px;
+}   
+.m-topbar .topf1{
+    position: relative;
+    width: 142px;
+    height: 25px;
+    background-color: #d43c33;
+   
+}
+.m-topbar .topplh {
+    opacity: 0;
+    color: #d43c33;
+}
+.m-topbar .topsvg{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 142px;
+    height: 25px;
+}
+
+.m-topbar .topbton{
+    position: relative;
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    font-size: 16px;
+    text-align: center;
+    color: #d43c33;
+    width: 100px;
+    background-color: white;
+    border-radius: 37.5%/100%;
+}
+
+/*tab*/
+.m-home .m-tabarea-index {
+    padding-top: 40px;
+}
+.m-tabarea{
+    margin: 0;
+}
+.m-tabarea-index .u-tab{
+    position: fixed;
+    top: 84px;
+    left: 0;
+    z-index: 100;
+}
+.mrc-tab, .u-tab{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    background: #fff;
+}
+.mrc-tab .tabtitle, .u-tab .tabtitle{
+    flex: 1;
+    display: block;
+    width: 30%;
+    height: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+.mrc-tab .z-selected .tabtxt, .u-tab .z-selected .tabtxt{
+    color:#d43c33 ;
+}
+.mrc-tab .tabtxt, .u-tab .tabtxt {
+position: relative;
+display: inline-block;
+max-width: 100%;
+height: 100%;
+padding: 0 5px;
+box-sizing: border-box;
+font-size: 15px;
+line-height: 40px;
+}
+.mrc-tab .tabtxt .tt, .u-tab .tabtxt .tt{
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.mrc-tab .z-selected .tabtxt:after, .u-tab .z-selected .tabtxt:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    z-index:3;
+    background: red;
+    height: 4px;
+    width: 100%;
+    transform: scaleY(.5);  
+}
+
+/*tabct*/
+.m-tabarea .m-tabct, .m-tabarea .m-tabct .tabctitem{
+    width: 100%;
+    height: 100%;
+}
+.m-tabarea .m-tabct{
+    display: block;
+}
+.m-homeremd{
+    padding-top:20px;
+}
+.m-homeremd .remd_tl{
+    position: relative;
+    padding-left:9px ;
+    margin-bottom: 14px;
+    font-size:17px;
+    height: 20px;
+    line-height: 20px;
+}
+.m-homeremd .remd_tl::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 2px;
+    margin-top: -9px;
+    height: 16px;
+    background: red;
+
+}
+.m-homeremd .remd_songs{
+    position: relative;
+    padding-bottom: 24px;
+}
+.m-homeremd .remd_ul:after {
+    display: block;
+    visibility: hidden;
+    clear: both;
+    height: 0;
+    overflow: hidden;
+    content: ".";
+}
+.m-homeremd .remd_li{
+    display: block;
+    margin-bottom: 16px;
+    float: left;
+    width: 33.3%;
+    padding-left: 1px;
+    padding-right: 1px;
+    box-sizing: border-box;
+}
+.m-homeremd .remd_li:first-child {
+    padding-left: 0;
+    padding-right: 2px;
+}
+.m-homeremd .remd_img{
+    position: relative;
+    padding-bottom: 100%;
+}
+.m-homeremd .remd_img>.u-img{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+.u-img {
+    width: 100%;
+    vertical-align: middle;
+}
+.m-homeremd .remd_lnum {
+    position: absolute;
+    right: 5px;
+    top: 2px;
+    z-index: 3;
+    padding-left: 13px;
+    color: #fff;
+    font-size: 12px;
+    background-position: 0;
+    background-repeat: no-repeat;
+    background-size: 11px 10px;
+    text-shadow: 1px 0 0 rgba(0,0,0,.15);
+}
+.m-homeremd .remd_img::after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 20px;
+    z-index: 2;
+    background-image: -webkit-linear-gradient(top,rgba(0,0,0,.2),transparent);
+    background-image: linear-gradient(180deg,rgba(0,0,0,.2),transparent);
+}
+.m-homeremd .remd_text {
+    display: -webkit-box;
+    font-size: 13px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    padding: 6px 2px 0 6px;
+    min-height: 30px;
+    line-height: 1.2;
+}
+.m-homeremd .remd_newsg {
+    position: relative;
+    min-height: 20px;
+}
+.m-sgitem, .m-sgitem .sgfl {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.m-sgitem {
+    padding-left: 10px;
+}
+.m-sgitem .sgfr {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+}
+.m-sgitem .sgchfl {
+    padding: 6px 0;
+    width: 0;
+}
+.m-sgitem .sgtl {
+    font-size: 17px;
+}
+.f-thide {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: normal;
+}.m-sgitem .sgchfl, .m-sgitem .sgfr {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+}
+.m-sgitem .sginfo {
+    font-size: 12px;
+    color: #888;
+}
+.m-sgitem .sgchply {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background-position: -24px 0;
+}
+.u-hmsprt {
+    background: url(//s3.music.126.net/mobile-new/img/index_icon_2x.png?5207a28…=) no-repeat;
+    background-size: 166px 97px;
+}
+@media screen and (-webkit-min-device-pixel-ratio: 3)
+.u-hmsprt {
+    background-image: url(//s3.music.126.net/mobile-new/img/index_icon_3x.png?49a82fe…=);
+}
+/*footer*/
+.m-homeft {
+    position: relative;
+    padding-top: 53.3%;
+    margin-top: 4px;
+    background: url(//s3.music.126.net/mobile-new/img/recommand_bg_2x.png?d045faf…=) no-repeat;
+    background-size: contain;
+}
+.m-homeft .ftwrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 1;
+    text-align: center;
+}
+.m-homeft .logo {
+    padding-top: 16.9%;
+}
+.m-homeft .logosvg {
+    display: block;
+    margin: 0 auto;
+    width: 230px;
+    height: 44px;
+}
+.m-homeft .openapp {
+    line-height: 38px;
+    border: 1px solid #d33a31;
+    border-radius: 38px;
+    font-size: 16px;
+    color: #d33a31;
+    margin: 15px 37px 5px;
+}
+.m-homeft .copyright {
+    color: #888;
+    font-size: 12px;
+    line-height: 16px;
+    -webkit-transform: scale(.75);
+    -ms-transform: scale(.75);
+    transform: scale(.75);
+}
