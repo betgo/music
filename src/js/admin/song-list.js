@@ -56,7 +56,7 @@
         }
     }
     let controller = {
-        init(view, data) {
+        init(view, model) {
             this.view = view
             this.model = model
             this.view.init(this)//this传入
